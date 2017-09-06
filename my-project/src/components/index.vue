@@ -121,6 +121,7 @@
     .bottom {
         width: 100%;
     }
+
     .el-menu-vertical-demo {
         width: 200px;
         height: 529px;
@@ -144,22 +145,22 @@
     }
 
     .icon1 {
-        background: url(FilmInformation.png);
+        background: url(images/FilmInformation.png);
         background-size: 100%;
     }
 
     .icon2 {
-        background: url(CinemaInformation.png);
+        background: url(images/CinemaInformation.png);
         background-size: 100%;
     }
 
     .icon3 {
-        background: url(ScreeningRoomInformation.png);
+        background: url(images/ScreeningRoomInformation.png);
         background-size: 100%;
     }
 
     .icon4 {
-        background: url(FilmScheduleInformation.png);
+        background: url(images/FilmScheduleInformation.png);
         background-size: 100%;
     }
 
@@ -187,6 +188,7 @@
     }
 
     .grid-content {
+        margin-top: 21px;
         border-radius: 5px;
         min-height: 485px;
     }
@@ -195,9 +197,11 @@
         padding: 10px 0;
         background-color: #f9fafc;
     }
-    #dateStr{
+
+    #dateStr {
         font-size: 14px;
         font-weight: 600;
         color: white;
     }
+
 </style>
