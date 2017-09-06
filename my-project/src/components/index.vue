@@ -1,77 +1,54 @@
 <template>
     <div id="box">
-       <div class="top">
-           <h2>猫眼电影后台管理系统</h2>
-           <div id="dateStr" class="word_grey"></div>
-       </div>
-       <div class="left">
-    <el-button @click="show = !show" class="btn">菜单列表</el-button>
-      <transition name="el-zoom-in-top">
-        <div v-show="show" class="transition-box">
-            <el-row class="tac">
-                <el-col :span="8">
-                    <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
-                        <el-menu-item-group title="操作">
-                            <router-link to="/userManager" class="text">
-                            <el-menu-item index="1">
-                                <i class="el-icon-message"></i>
-                                用户管理
-                            </el-menu-item>
+        <el-row  class="top">
+            <el-col :span="24">
+                <h2>猫眼电影后台管理系统</h2>
+                <span id="dateStr" class="word_grey"></span>
+            </el-col>
+        </el-row>
+        <el-row :gutter="20" class="bottom">
+            <el-col :span="4"  class="left">
+                <div class="transition-box">
+                <el-row class="tac">
+                    <el-col :span="4">
+                        <el-menu mode="vertical" default-active="1" class="el-menu-vertical-demo">
+                           <el-menu-item-group title="操作菜单">
+                            <router-link to="/filmInformation">
+                                <el-menu-item index="1"  class="text">
+                                    <i class="icon icon1"></i>
+                                    电影信息
+                                </el-menu-item>
                             </router-link>
-                            <router-link to="/filmManager" class="text">
-                            <el-menu-item index="2">
-                                <i class="el-icon-message"></i>
-                                电影管理
-                            </el-menu-item>
+                            <router-link to="/cinemaInformation">
+                                <el-menu-item index="2"  class="text">
+                                    <i class="icon icon2"></i>
+                                    影院信息
+                                </el-menu-item>
                             </router-link>
-                            <router-link to="/information" class="text">
-                            <el-menu-item index="3">
-                                <i class="el-icon-message"></i>
-                                咨讯管理
-                            </el-menu-item>
+                            <router-link to="/screeningRoomInformation">
+                                <el-menu-item index="3"  class="text">
+                                    <i class="icon icon3"></i>
+                                    影厅信息
+                                </el-menu-item>
                             </router-link>
-                            <router-link to="/cinemaChainManager" class="text">
-                            <el-menu-item index="4">
-                                <i class="el-icon-message"></i>
-                                影线管理
-                            </el-menu-item>
+                            <router-link to="/filmScheduleInformation">
+                                <el-menu-item index="4"  class="text">
+                                    <i class="icon icon4"></i>
+                                    排片信息
+                                </el-menu-item>
                             </router-link>
-                            <router-link to="/movieCinemaChain" class="text">
-                            <el-menu-item index="5">
-                                <i class="el-icon-message"></i>
-                                电影院线匹配
-                            </el-menu-item>
-                            </router-link>
-                            <router-link to="/comingSoon" class="text">
-                            <el-menu-item index="6">
-                                <i class="el-icon-message"></i>
-                                即将上映
-                            </el-menu-item>
-                            </router-link>
-                            <router-link to="/hit" class="text">
-                            <el-menu-item index="7">
-                                <i class="el-icon-message"></i>
-                                正在热映
-                            </el-menu-item>
-                            </router-link>
-                            <router-link to="/wellReceived" class="text">
-                            <el-menu-item index="8">
-                                <i class="el-icon-message"></i>
-                                热播影视
-                            </el-menu-item>
-                            </router-link>
-                        </el-menu-item-group>
-                    </el-menu>
-                </el-col>
-            </el-row>
-        </div>
-       </transition>
-       </div>
-        <div class="right">
-            <router-view></router-view>
-        </div>
-        
-        
+                            </el-menu-item-group>
+                        </el-menu>
+                    </el-col>
+                </el-row>
+            </div>
+            </el-col>
+            <el-col :span="20" class="right">
+                <div class="grid-content bg-purple">                    
+                    <router-view></router-view>
+                </div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 
@@ -104,14 +81,11 @@
             second = "0" + second;
         }
         var newDate = year + "年" + month + "月" + date + "日 " + week + " " + hour + ":" + minute + ":" + second;
-        document.getElementById("dateStr").innerHTML = "系统公告：[ " + newDate + " ]";
+        document.getElementById("dateStr").innerHTML = "当前时间：" + newDate + "";
     }
     export default {
         data() {
-            return {
-                isCollapse: true,
-                show: true
-            };
+            return {};
         },
         mounted() {
             getLangDate();
@@ -128,52 +102,102 @@
     #box {
         width: 100%;
         height: 660px;
-        background: url(2ecf57b2f1df79961b5af152f5df5176.jpg);
-        background-size: 100%;
+        background-color: rgb(230, 232, 234);
     }
 
     .top {
+        padding-bottom: 40px;
+        background-color: #FF4949;
+    }
+
+    .top h2 {
+        padding-left: 40px;
+    }
+
+    .top span {
+        padding-left: 40px;
+    }
+
+    .bottom {
         width: 100%;
-        height: 120px;
-        float: left;
-        background-color: #E5E9F2;
-        opacity: 0.6;
     }
-
-    .top>h2 {
-        padding-left: 35px;
-    }
-
-    .left {
-        margin-left: 2px;
-        float: left;
-    }
-
-    .right {
-        float: left;
-    }
-
     .el-menu-vertical-demo {
-        width: 160px;
-        background-color: #8492A6;
-        opacity: 0.8;
+        width: 200px;
+        height: 529px;
+        background-color: rgb(24, 29, 32);
     }
 
     .text {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
-        color: dimgray;
+    }
+
+    a {
         text-decoration: none;
     }
 
-    .btn {
-        width: 160px;
-        color: gray;
-        font-size: 16px;
-        font-weight: 600;
-        background-color: #C0CCDA;
-        border-color: #C0CCDA;
-        opacity: 0.8;
+    .icon {
+        display: inline-block;
+        margin-right: 5px;
+        width: 20px;
+        height: 20px;
     }
 
+    .icon1 {
+        background: url(FilmInformation.png);
+        background-size: 100%;
+    }
+
+    .icon2 {
+        background: url(CinemaInformation.png);
+        background-size: 100%;
+    }
+
+    .icon3 {
+        background: url(ScreeningRoomInformation.png);
+        background-size: 100%;
+    }
+
+    .icon4 {
+        background: url(FilmScheduleInformation.png);
+        background-size: 100%;
+    }
+
+    .el-row {
+        min-height: 100px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .el-col {
+        border-radius: 4px;
+    }
+
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+
+    .bg-purple {
+        background-color: white;
+    }
+
+    .bg-purple-light {
+        background: #e5e9f2;
+    }
+
+    .grid-content {
+        border-radius: 5px;
+        min-height: 485px;
+    }
+
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
+    }
+    #dateStr{
+        font-size: 14px;
+        font-weight: 600;
+        color: white;
+    }
 </style>

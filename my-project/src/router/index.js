@@ -1,58 +1,64 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//引入首页
+
+
+//一级路由
+
+//首页
 import Index from '@/components/index'
-//引入列表功能页
-import CinemaChainManager from "@/components/modules/CinemaChainManager/CinemaChainManager"
-import ComingSoon from "@/components/modules/ComingSoon/ComingSoon"
-import FilmManager from "@/components/modules/FilmManager/FilmManager"
-import Hit from "@/components/modules/Hit/Hit"
-import Information from "@/components/modules/Information/Information"
-import MovieCinemaChain from "@/components/modules/MovieCinemaChain/MovieCinemaChain"
-import UserManager from "@/components/modules/UserManager/UserManager"
-import WellReceived from "@/components/modules/WellReceived/WellReceived"
+//登录
+import SignIn from '@/components/signIn'
+//注册
+import SignUp from '@/components/signUp'
+
+
+
+//二级路由
+
+//影院信息
+import CinemaInformation from "@/components/cinemaInformation"
+//电影信息
+import FilmInformation from "@/components/filmInformation"
+//影厅信息
+import ScreeningRoomInformation from "@/components/screeningRoomInformation"
+//排片信息
+import FilmScheduleInformation from "@/components/filmScheduleInformation"
+
 
 Vue.use(Router)
+
 
 export default new Router({
     routes: [
         {
-            path: '/',
+            path: '/index',
             name: '首页',
             component: Index,
             children: [{
-                path: '/cinemaChainManager',
-                name: '影线管理',
-                component: CinemaChainManager,
+                path: '/cinemaInformation',
+                name: '影院信息',
+                component: CinemaInformation,
             }, {
-                path: '/comingSoon',
-                name: '即将上映',
-                component: ComingSoon,
+                path: '/filmInformation',
+                name: '电影信息',
+                component: FilmInformation,
             }, {
-                path: '/filmManager',
-                name: '电影管理',
-                component: FilmManager,
+                path: '/screeningRoomInformation',
+                name: '影厅信息',
+                component: ScreeningRoomInformation,
             }, {
-                path: '/hit',
-                name: '正在热映',
-                component: Hit,
-            }, {
-                path: '/information',
-                name: '咨讯管理',
-                component: Information,
-            }, {
-                path: '/movieCinemaChain',
-                name: '电影院线匹配',
-                component: MovieCinemaChain,
-            }, {
-                path: '/userManager',
-                name: '用户管理',
-                component: UserManager,
-            },  {
-                path: '/wellReceived',
-                name: '热播影视',
-                component: WellReceived,
+                path: '/filmScheduleInformation',
+                name: '排片信息',
+                component: FilmScheduleInformation,
             }]
-    }
+    }, {
+            path: '/signin',
+            name: '登录',
+            component: SignIn,
+    }, {
+            path: '/signUp',
+            name: '注册',
+            component: SignUp,
+        }
   ]
 })
