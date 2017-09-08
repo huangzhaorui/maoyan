@@ -14,7 +14,7 @@ import FilmInformation from './modules/FilmInformation';
 //影厅信息
 import ScreeningRoomInformation from './modules/ScreeningRoomInformation';
 //排片信息
-import FilmScheduleInformation from './modules/FilmScheduleInformation';
+import { FilmScheduleInformation } from './modules/FilmScheduleInformation';
 
 
 Vue.use(Vuex);
