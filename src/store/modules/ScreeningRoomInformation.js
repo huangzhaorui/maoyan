@@ -13,6 +13,7 @@ const A_GETDATA = "A_GETDATA"
 const A_PAGING = "A_PAGING"
 const A_SEARCH = "A_SEARCH"
 const A_DELETE = "A_DELETE"
+const A_SAVESITE = "A_SAVESITE"
 
 const ScreeningRoomInformation = ({
     state: {
@@ -26,7 +27,8 @@ const ScreeningRoomInformation = ({
                 }],
         maxPage: 10,
         page: 1,
-        tableData: []
+        tableData: [],
+        siteMsg: []
     },
     mutations: {
         [M_GETCINEMA](state, obj) {
@@ -46,7 +48,7 @@ const ScreeningRoomInformation = ({
                 return {
                     cinemasName: item.cinemasName,
                     roomName: item.roomName,
-                    sites: item.sites.length,
+                    sites: item.sites,
                     id: item._id
                 }
             })
@@ -78,22 +80,63 @@ const ScreeningRoomInformation = ({
             }
             let sites = [];
             for (let i = 1; i <= 10; i++) {
+                let line = [];
                 for (let j = 1; j <= 10; j++) {
-                    sites.push({
+                    line.push({
                         row: i,
                         col: j,
+                        displayName: `${i}排${j}号`,
                         isSale: false
                     })
                 }
+                sites.push(line);
             }
-            let data = await axios.get('http://127.0.0.1:3000/roomMsg/add', {
+            let list = await axios.get('http://127.0.0.1:3000/sites/add', {
+                params: {
+                    data: JSON.stringify(sites)
+                }
+            })
+            let room = await axios.get('http://127.0.0.1:3000/roomMsg/add', {
                 params: {
                     cinemasId: obj.data.id,
                     roomName: obj.data.name,
                     cinemasName,
-                    sites: JSON.stringify(sites)
+                    sitesId: list.data.insertedIds[0],
+                    sites: sites.length
                 }
             })
+            await axios.get('http://127.0.0.1:3000/sites/update', {
+                params: {
+                    _id: list.data.insertedIds[0],
+                    roomId: room.data.insertedIds[0]
+                }
+            })
+            await axios.get('http://127.0.0.1:3000/sites/update', {
+                params: {
+                    _id: list.data.insertedIds[0],
+                    roomId: room.data.insertedIds[0]
+                }
+            })
+            let cinema = await axios.get('http://127.0.0.1:3000/cinemaMsg/find', {
+                params: {
+                    _id: obj.data.id,
+                }
+            });
+            if (cinema.data.roomId) {
+                await axios.get('http://127.0.0.1:3000/cinemaMsg/update', {
+                    params: {
+                        _id: obj.data.id,
+                        roomId: [...cinema.data.roomId, room.data.insertedIds[0]]
+                    }
+                })
+            } else {
+                await axios.get('http://127.0.0.1:3000/cinemaMsg/update', {
+                    params: {
+                        _id: obj.data.id,
+                        roomId: [room.data.insertedIds[0]]
+                    }
+                })
+            }
         },
         async [A_GETDATA](context, obj) {
             let data = await axios.get('http://127.0.0.1:3000/roomMsg/find', {
@@ -139,11 +182,53 @@ const ScreeningRoomInformation = ({
             })
         },
         async [A_DELETE](context, obj) {
+            let list = await axios.get('http://127.0.0.1:3000/roomMsg/find', {
+                params: {
+                    _id: obj.id
+                }
+            })
+            await axios.get('http://127.0.0.1:3000/sites/del', {
+                params: {
+                    _id: list.data.sitesId
+                }
+            })
+            let cinema = await axios.get('http://127.0.0.1:3000/cinemaMsg/find', {
+                params: {
+                    _id: list.data.cinemasId
+                }
+            })
+            cinema.data.roomId.map((item, index) => {
+                if (item == list.data._id) {
+                    cinema.data.roomId.splice(index, 1);
+                    return
+                }
+            })
+            if (cinema.data.roomId.length > 0) {
+                await axios.get('http://127.0.0.1:3000/cinemaMsg/update', {
+                    params: {
+                        _id: list.data.cinemasId,
+                        roomId: cinema.data.roomId
+                    }
+                })
+            } else {
+                await axios.get('http://127.0.0.1:3000/cinemaMsg/update', {
+                    params: {
+                        _id: list.data.cinemasId,
+                        roomId: ''
+                    }
+                })
+            }
             await axios.get('http://127.0.0.1:3000/roomMsg/del', {
                 params: {
                     _id: obj.id
                 }
             })
+        },
+        async [A_SAVESITE](comtext, obj) {
+            let sites = [];
+            if (obj.data.siteState == '是') {
+
+            }
         }
     }
 })

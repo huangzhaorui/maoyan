@@ -82,28 +82,57 @@
             </el-row>
             <el-row>
                 <el-col :span="24"><div class="grid-content">
-                    <el-table :data="tableData" border style="text-align: center"  @cell-mouse-enter="clickRowBtn">
-                    <el-table-column prop="cinemasName" label="影院名" width="250"></el-table-column>
-                    <el-table-column prop="roomName" label="影厅名" width="250"></el-table-column>
-                    <el-table-column prop="sites" label="座位总数" width="250"></el-table-column>
-                    <el-table-column prop="id" label="操作" width="313">
-                        <template scope="scope">
-                            <el-button type="primary" @click="editBtn">编辑</el-button>
+                    <el-table :data="tableData" border style="text-align: center"  @cell-mouse-enter="clickRowBtn"  @expand="editBtn" width="1000">
+                    <el-table-column type="expand" width="50">
+                    <template scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand" style="text-align: center">
+                    <el-row :gutter="20">
+                        <el-col :span="2"><div class="grid-content">
+                            <el-tag type="primary">设置座位信息</el-tag>
+                        </div></el-col>
+                        <el-col :span="7"><div class="grid-content">
+                            <el-form-item label="座位行数：">
+                           <el-input v-model="row" class="siteMsg"></el-input>
+                        </el-form-item>
+                        </div></el-col>
+                        <el-col :span="7"><div class="grid-content">
+                            <el-form-item label="座位号数：">
+                           <el-input v-model="num" class="siteMsg"></el-input>
+                        </el-form-item>
+                        </div></el-col>
+                        <el-col :span="7"><div class="grid-content">
+                            <el-form-item label="是否已售：">
+                           <el-input v-model="siteState" class="siteMsg" @blur="checkSiteMsg"></el-input>
+                        </el-form-item>
+                        </div></el-col>
+                    </el-row>
+                    </el-form>
+                    </template>
+</el-table-column>
+<el-table-column prop="cinemasName" label="影院名" width="250"></el-table-column>
+<el-table-column prop="roomName" label="影厅名" width="250"></el-table-column>
+<el-table-column prop="sites" label="座位总数" width="200"></el-table-column>
+<el-table-column prop="id" label="操作">
+    <template scope="scope">
+                            <el-button type="primary" @click="save">保存</el-button>
                             <el-button @click="deleteBtn">删除</el-button>
                         </template>
-                    </el-table-column>
-                    </el-table>
-                </div></el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="24"><div class="grid-content paging">
-                <div class="block">
-                    <el-pagination layout="prev, pager, next" :total="maxPage" @current-change="getPage"></el-pagination>
-                </div>
-                </div></el-col>
-            </el-row>
+</el-table-column>
+</el-table>
+</div>
+</el-col>
+</el-row>
+<el-row>
+    <el-col :span="24">
+        <div class="grid-content paging">
+            <div class="block">
+                <el-pagination layout="prev, pager, next" :total="maxPage" @current-change="getPage"></el-pagination>
+            </div>
         </div>
-    </div>
+    </el-col>
+</el-row>
+</div>
+</div>
 </template>
 
 <script>
@@ -112,11 +141,14 @@
             return {
                 input: '',
                 search: '',
-                checkMsg: '当前没有要添加的影厅',
                 cinemaId: '',
                 roomVal: '',
                 type: '',
                 checkId: '',
+                row: '',
+                num: '',
+                errorText: '',
+                siteState: '',
                 searchType: [{
                     value: 'cinemaNames',
                     label: '影院'
@@ -124,7 +156,7 @@
                     value: 'roomName',
                     label: '影厅'
                 }],
-                activeNames: ['1','2','3']
+                activeNames: ['1', '2', '3']
             }
         },
         mounted() {
@@ -150,8 +182,8 @@
                 this.roomVal = "";
                 this.cinemaId = "";
             },
-            addOn() {
-                this.$store.dispatch({
+            async addOn() {
+                await this.$store.dispatch({
                     type: 'A_ADDROOM',
                     data: {
                         id: this.cinemaId,
@@ -160,13 +192,12 @@
                 })
                 this.roomVal = "";
                 this.cinemaId = "";
-                this.checkMsg = '当前没有要添加的影厅';
+                this.openSuccess('影厅添加成功！');
                 this.getData();
             },
             addOff() {
                 this.roomVal = "";
                 this.cinemaId = "";
-                this.checkMsg = '当前没有要添加的影厅';
             },
             addRoom() {
                 this.$store.commit({
@@ -174,6 +205,7 @@
                     data: this.input
                 })
                 this.input = "";
+                this.openSuccess('影厅增加成功！');
             },
             offRoom() {
                 this.input = "";
@@ -201,8 +233,15 @@
             clickRowBtn(e) {
                 this.checkId = e.id;
             },
-            editBtn() {
-                console.log(this.checkId);
+            editBtn(row, expanded) {
+                this.row='';
+                this.num='';
+                this.siteState='';
+                if (expanded) {
+                    this.activeNames = [];
+                } else {
+                    this.activeNames = ['1', '2', '3'];
+                }
             },
             async deleteBtn() {
                 await this.$store.dispatch({
@@ -210,6 +249,39 @@
                     id: this.checkId
                 })
                 this.getData();
+            },
+            save() {
+                if (/^[1-9]{1}$/.test(this.row) && /^[1-9]{1}$/.test(this.num) && this.siteState != '') {
+                    this.$store.dispatch({
+                        type: 'A_SAVESITE',
+                        data: {
+                            row: this.row,
+                            num: this.num,
+                            siteState: this.siteState
+                        }
+                    })
+                    this.openSuccess('座位信息修改成功');
+                } else {
+                    this.row = '';
+                    this.num = '';
+                    this.siteState = '';
+                    this.openError('座位信息输入不完整，请重新输入！');
+                }
+            },
+            checkSiteMsg() {
+                if (this.siteState != "是" && this.siteState != "否") {
+                    this.openError("只能输入'是'或'否'！");
+                    this.siteState == '';
+                }
+            },
+            openSuccess(text) {
+                this.$message({
+                    message: text,
+                    type: 'success'
+                });
+            },
+            openError(text) {
+                this.$message.error(text);
             }
         },
         computed: {
@@ -241,6 +313,7 @@
             margin-bottom: 0;
         }
     }
+
     .el-col {
         border-radius: 4px;
     }
@@ -287,4 +360,13 @@
     .el-select {
         width: 100px;
     }
+
+    .demo-table-expand {
+        height: 10px;
+    }
+
+    .siteMsg {
+        width: 120px;
+    }
+
 </style>
