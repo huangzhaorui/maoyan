@@ -1,7 +1,14 @@
 <template>
 <div>
-<!--查询-->
-
+<!------------------------------------------------搜索-------------------------------------------------------->
+  <el-dropdown split-button type="primary" @click="handleClick">
+	 选项
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>影院</el-dropdown-item>
+    <el-dropdown-item>地址</el-dropdown-item>
+    <el-dropdown-item>网址</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
   <el-input
   placeholder="影院搜索"
   icon="search"
@@ -9,6 +16,7 @@
   show-header="false"
   :on-icon-click="handleIconClick">
 </el-input>
+<!------------------------------------------------添加------------------------------------------------------->
  <el-collapse v-model="activeName" accordion>
   <el-collapse-item id="insert" title="添加影院" name="1">
 
@@ -30,7 +38,7 @@
 
   </el-collapse-item>
 </el-collapse>
-<!--影院信息-->
+<!---------------------------------------------影院信息---------------------------------------------------->
  <div id="tableBox" >
   <el-table
     :data="cinemaMsgList"
@@ -79,7 +87,8 @@
       <template scope="scope">
 		  <el-button
           size="small"
-          @click="handleEdit(scope)">编辑</el-button>
+		  id="delet"
+          @click="handleEdit(scope)">保存修改</el-button>
 		  <el-button
           size="small"
           type="danger"
@@ -87,6 +96,7 @@
       </template>
     </el-table-column>
   </el-table>
+<!-------------------------------------------翻页--------------------------------------------->
   <div id="pageBtn">
   <div class="block">
   <el-pagination
@@ -102,10 +112,7 @@
 <script>
 	import {mapState} from "vuex"
 	import {mapActions } from "vuex"
-	import {ACTION_GET_MSG} from "../store/modules/CinemaInformation"
-	import {ACTION_ADD_MSG} from "../store/modules/CinemaInformation"
-	import {ACTION_SEARCH_MSG} from "../store/modules/CinemaInformation"
-	import {ACTION_ELT_MSG} from "../store/modules/CinemaInformation"
+	import {ACTION_GET_MSG,ACTION_ELT_MSG,ACTION_SEARCH_MSG,ACTION_ADD_MSG} from "../store/modules/CinemaInformation"
     export default {
        data() {
       return {
@@ -121,17 +128,19 @@
 		activeName: ''
       }
     },
-   async mounted(page){
-	  await this.$store.dispatch({
-			type:"ACTION_GET_MSG",
-		    page
-		});
-	   console.log(this.cinemaMsgList)
-
+	mounted(page){
+	  this.getPage()
 	},
 	
     methods: {
-		
+		//		翻页
+  		async getPage(page){
+	  		await this.$store.dispatch({
+				type:"ACTION_GET_MSG",
+				page
+	  		});
+ 		},
+		//		添加影院信息
 		async filmMsgAdd(e){
 			if(this.film.length==0||this.phoneNum.length==0||this.address1.length==0||this.internetAdress1.length==0){
 			this.$message.error("信息录入不完整")
@@ -146,18 +155,15 @@
 					internetAdress:this.internetAdress1
 				}
 			})
+			this.$message.info('信息添加成功');
 			this.activeName=''
 			this.film=""
 			this.phoneNum=""
 			this.address1=""
 			this.internetAdress1=""
+			this.getPage()
 			}
-
-		
-		},
-		turnUpPage(){
-			addMsg.style.display="none";
-		  tableBox.style.display="block"
+			
 		},
 //		搜索
 		async handleIconClick(){
@@ -165,21 +171,21 @@
 				type:"ACTION_SEARCH_MSG",
 				cinema:this.input2
 			})
-			console.log(this.input2)
 		},
 //		删除
 		async deleteRow(scope){
-		console.log(scope.row._id)
 		await this.$store.dispatch({
 			type:"ACTION_DEL_MSG",
 			_id:scope.row._id
 		})
+		this.$message.info('删除成功');
 		this.getPage()
       },
 //		编辑
 		async handleEdit(scope){
 			console.log(scope)
-			await this.$store.dispatch({
+			if(this.eltCinema.length!=0||this.eltAddress!=0||this.eltinterAddress!=0||this.eltPhone!=0){
+				await this.$store.dispatch({
 				type:"ACTION_ELT_MSG",
 				obj:{
 				id:scope.row._id,
@@ -195,15 +201,9 @@
 			this.eltinterAddress=''
 			this.eltPhone=''
 			this.getPage()
+			}
 			
-		},
-//		翻页
-		async getPage(page){
-			console.log(page)
-			await this.$store.dispatch({
-			type:"ACTION_GET_MSG",
-			page
-		});
+			
 		},
 
     },
@@ -220,9 +220,6 @@
 		}
 		
 	}
-		
-  
-    
     }
 </script>
 

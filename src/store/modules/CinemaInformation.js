@@ -11,7 +11,7 @@ const MU_SEARCH_MSG="MU_SEARCH_MSG"
 const CinemaInformation = ({
    state: {
         cinemaMsgList:[],
-	    page:1,
+//	    page:1,
 	    maxPage:5
     },
     mutations: {
@@ -29,6 +29,7 @@ const CinemaInformation = ({
 		},
     },
 	actions: {
+//		添加
 		async[ACTION_ADD_MSG]({dispatch}, obj) {
 			console.log(obj)
 			await axios.get("http://127.0.0.1:3000/cinemaMsg/add",{
@@ -41,6 +42,7 @@ const CinemaInformation = ({
 			})
 			dispatch(ACTION_GET_MSG)
 		},
+//      获取数据
 		async[ACTION_GET_MSG](context,obj) {
 			const {
 				data
@@ -56,6 +58,7 @@ const CinemaInformation = ({
 				obj:data
 			})
 		},
+//		查询
 		async [ACTION_SEARCH_MSG](context,obj){
 			const {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
 				params:{
