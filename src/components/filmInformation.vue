@@ -14,7 +14,6 @@
     style="width: 100%"
     @cell-mouse-enter="pein">
     <el-table-column
-      fixed
       prop="filmName"
       label="电影名"
       width="100">
@@ -57,10 +56,9 @@
     <el-table-column
       prop="actor"
       label="演员"
-      width="125">
+      width="152">
     </el-table-column>
     <el-table-column
-      fixed="right"
       label="操作"
       width="100">
       <template scope="scope">
@@ -71,7 +69,7 @@
 </el-table-column>
 </el-table>
 <div class="block">
-    <el-pagination layout="prev, pager, next" :total="20" @current-change="pageChange">
+    <el-pagination layout="prev, pager, next" :page-size=4 :total="movieNum" @current-change="pageChange">
     </el-pagination>
 </div>
 </div>

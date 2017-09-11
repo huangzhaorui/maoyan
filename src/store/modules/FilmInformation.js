@@ -17,7 +17,7 @@ export const MU_SEARCHMOVIE = "MU_SEARCHMOVIE"
 const FilmInformation = ({
     state: {
         movieList: [],
-        movieNum: 100,
+        movieNum: 1000,
         page: 1,
         addMovie: {},
         updataMovie: {}
@@ -26,7 +26,7 @@ const FilmInformation = ({
 		[MU_GET_MOVIE_LIST](state, data) {
             console.log(data)
             state.movieList = data.rows;
-            state.movieNum = data.total / data.eachpage * 100;
+            state.movieNum =data.total;
             return state;
         },
         [MU_GET_ADDMOVIE](state, data) {

@@ -4,7 +4,7 @@
   <el-select v-model="formInline" placeholder="选项">
       <el-option label="影院" value="cinema"></el-option>
       <el-option label="地址" value="address"></el-option>
-	  <el-option label="热线" value="phone"></el-option>
+	  <el-option label="价格" value="phone"></el-option>
 	  <el-option label="网址" value="cinameurl"></el-option>
   </el-select>
   <el-input
@@ -23,7 +23,7 @@
   <el-form-item label="影院">
     <el-input v-model="film"></el-input>
   </el-form-item>
-  <el-form-item label="热线">
+  <el-form-item label="价格">
     <el-input v-model="phoneNum"></el-input>
   </el-form-item>
   <el-form-item label="地址">
@@ -56,7 +56,7 @@
           <el-form-item label="网址">
             <el-input v-model="eltinterAddress"></el-input>
           </el-form-item>
-          <el-form-item label="热线">
+          <el-form-item label="价格">
             <el-input v-model="eltPhone"></el-input>
           </el-form-item>
         </el-form>
@@ -69,7 +69,7 @@
     </el-table-column>
     <el-table-column
       prop="phone"
-      label="热线"
+      label="价格"
       >
     </el-table-column>
     <el-table-column
