@@ -142,7 +142,6 @@
     }
 
     .text {
-        /*        color: black;*/
         line-height: 5;
     }
 
@@ -154,7 +153,7 @@
 
     #box {
         width: 100%;
-        height: 660px;
+        min-height:660px;
         background-color: rgb(230, 232, 234);
     }
 
@@ -174,11 +173,11 @@
 
     .bottom {
         width: 100%;
+        height: 100%;
     }
-
     .el-menu-vertical-demo {
         width: 200px;
-        height: 529px;
+        height: 590px;
         background-color: rgb(24, 29, 32);
     }
 
@@ -255,7 +254,6 @@
     #dateStr {
         font-size: 14px;
         font-weight: 600;
-        /*        color: black;*/
     }
 
 </style>
