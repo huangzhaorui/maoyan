@@ -3,7 +3,7 @@
         <el-row  class="top">
             <el-col :span="24" class="top-left">
                 <h2>猫眼电影后台管理系统</h2>
-                <span id="dateStr" class="word_grey"></span>
+                <span class="word_grey">{{dateStr}}</span>
             </el-col>
             <el-col class="top-right">
                 <el-dropdown trigger="hover">
@@ -63,50 +63,47 @@
 </template>
 
 <script>
-    function getLangDate() {
-        var dateObj = new Date(); //表示当前系统时间的Date对象 
-        var year = dateObj.getFullYear(); //当前系统时间的完整年份值
-        var month = dateObj.getMonth() + 1; //当前系统时间的月份值 
-        var date = dateObj.getDate(); //当前系统时间的月份中的日
-        var day = dateObj.getDay(); //当前系统时间中的星期值
-        var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
-        var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串 
-        var hour = dateObj.getHours(); //当前系统时间的小时值 
-        var minute = dateObj.getMinutes(); //当前系统时间的分钟值
-        var second = dateObj.getSeconds(); //当前系统时间的秒钟值
-        //如果月、日、小时、分、秒的值小于10，在前面补0
-        if (month < 10) {
-            month = "0" + month;
-        }
-        if (date < 10) {
-            date = "0" + date;
-        }
-        if (hour < 10) {
-            hour = "0" + hour;
-        }
-        if (minute < 10) {
-            minute = "0" + minute;
-        }
-        if (second < 10) {
-            second = "0" + second;
-        }
-        var newDate = year + "年" + month + "月" + date + "日 " + week + " " + hour + ":" + minute + ":" + second;
-        document.getElementById("dateStr").innerHTML = "" + newDate + "";
-    }
     export default {
         data() {
             return {
                 Name: '',
-                time: false
+                time: false,
+                dateStr: ''
             };
         },
         mounted() {
-            getLangDate();
-            let off = setInterval(function() {
-                getLangDate()
-                if (this.time) {
-                    clearInterval(off);
-                }
+            let getLangDate=()=>{
+            var dateObj = new Date(); //表示当前系统时间的Date对象 
+            var year = dateObj.getFullYear(); //当前系统时间的完整年份值
+            var month = dateObj.getMonth() + 1; //当前系统时间的月份值 
+            var date = dateObj.getDate(); //当前系统时间的月份中的日
+            var day = dateObj.getDay(); //当前系统时间中的星期值
+            var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+            var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串 
+            var hour = dateObj.getHours(); //当前系统时间的小时值 
+            var minute = dateObj.getMinutes(); //当前系统时间的分钟值
+            var second = dateObj.getSeconds(); //当前系统时间的秒钟值
+            //如果月、日、小时、分、秒的值小于10，在前面补0
+            if (month < 10) {
+                month = "0" + month;
+            }
+            if (date < 10) {
+                date = "0" + date;
+            }
+            if (hour < 10) {
+                hour = "0" + hour;
+            }
+            if (minute < 10) {
+                minute = "0" + minute;
+            }
+            if (second < 10) {
+                second = "0" + second;
+            }
+            var newDate = year + "年" + month + "月" + date + "日 " + week + " " + hour + ":" +     minute + ":" + second;
+            this.dateStr=newDate;
+            }    
+            setInterval(function() {
+                getLangDate();
             }, 1000) //每隔1秒重新调用一次该函数  
         },
         methods: {
@@ -145,7 +142,6 @@
     }
 
     .text {
-/*        color: black;*/
         line-height: 5;
     }
 
@@ -157,7 +153,7 @@
 
     #box {
         width: 100%;
-        height: 660px;
+        min-height:660px;
         background-color: rgb(230, 232, 234);
     }
 
@@ -177,11 +173,11 @@
 
     .bottom {
         width: 100%;
+        height: 100%;
     }
-
     .el-menu-vertical-demo {
         width: 200px;
-        height: 529px;
+        height: 590px;
         background-color: rgb(24, 29, 32);
     }
 
@@ -258,7 +254,6 @@
     #dateStr {
         font-size: 14px;
         font-weight: 600;
-/*        color: black;*/
     }
 
 </style>

@@ -2,7 +2,7 @@
     <div>
         <div id="box">
             <el-row :gutter="20">
-            <el-col :span="8"><div class="grid-content bg-purple">
+            <el-col :span="8"><div class="grid-content">
                 <el-collapse v-model="activeNames">
                     <el-collapse-item title="增加影厅" name="1">
                         <div>
@@ -34,7 +34,7 @@
                     </el-collapse-item>
                </el-collapse>
             </div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple">
+            <el-col :span="8"><div class="grid-content">
                 <el-collapse v-model="activeNames">
                 <el-collapse-item title="新建影厅" name="2">
                     <div>
@@ -53,7 +53,7 @@
                 </el-collapse-item>
                 </el-collapse>
             </div></el-col>
-            <el-col :span="8"><div class="grid-content bg-purple">
+            <el-col :span="8"><div class="grid-content">
                 <el-collapse v-model="activeNames">
                 <el-collapse-item title="搜索影厅" name="3">
                     <div>
@@ -368,5 +368,4 @@
     .siteMsg {
         width: 120px;
     }
-
 </style>
