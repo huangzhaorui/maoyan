@@ -252,17 +252,6 @@
                 this.imageUrl = URL.createObjectURL(file.raw);
                 this.posterImg = response.url;
             },
-            //图集上传
-//            beforeMoviePic(file,fileList){
-//                if (this.fileList.length > 4) {
-//                    this.$message({
-//                    type: 'error',
-//                    message: '最多上传4张图片',
-//                    duration: 1000
-//                    })
-//                    return false
-//                    }
-//            },
             moviePics(response, file) {
                 this.atlas.push(response.url);
             },
