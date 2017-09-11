@@ -362,7 +362,7 @@
   }
   
   .data-div {
-    margin-right: 71px; 
+    margin-right: 72px; 
   }
   
   .pagination-div {
