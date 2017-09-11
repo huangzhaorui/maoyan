@@ -79,6 +79,7 @@ const ScreeningRoomInformation = ({
                 }
             }
             let sites = [];
+            let siteNum = 0;
             for (let i = 1; i <= 10; i++) {
                 let line = [];
                 for (let j = 1; j <= 10; j++) {
@@ -89,6 +90,7 @@ const ScreeningRoomInformation = ({
                         isSale: false
                     })
                 }
+                siteNum += line.length;
                 sites.push(line);
             }
             let list = await axios.get('http://127.0.0.1:3000/sites/add', {
@@ -102,7 +104,7 @@ const ScreeningRoomInformation = ({
                     roomName: obj.data.name,
                     cinemasName,
                     sitesId: list.data.insertedIds[0],
-                    sites: sites.length
+                    sites: siteNum
                 }
             })
             await axios.get('http://127.0.0.1:3000/sites/update', {
@@ -225,10 +227,40 @@ const ScreeningRoomInformation = ({
             })
         },
         async [A_SAVESITE](comtext, obj) {
-            let sites = [];
+            let searchSite = await axios.get('http://127.0.0.1:3000/sites/find', {
+                params: {
+                    roomId: obj.id
+                }
+            })
+            let sitesId = searchSite.data[0]._id;
+            let sites = searchSite.data[0].data;
             if (obj.data.siteState == '是') {
-
-            }
+                sites[obj.data.row - 1][obj.data.num - 1].isSale = true;
+            } else {
+                sites[obj.data.row - 1][obj.data.num - 1].isSale = false;
+            };
+            let blockSite = 0;
+            sites.map((item) => {
+                item.map((site) => {
+                    if (site.isSale == false) {
+                        blockSite += 1;
+                    }
+                    return site;
+                })
+                return item;
+            })
+            await axios.get('http://127.0.0.1:3000/roomMsg/update', {
+                params: {
+                    _id: obj.data.id,
+                    sites: blockSite
+                }
+            })
+            await axios.get('http://127.0.0.1:3000/sites/update', {
+                params: {
+                    _id: sitesId,
+                    data: JSON.stringify(sites)
+                }
+            })
         }
     }
 })
