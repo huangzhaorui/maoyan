@@ -92,7 +92,7 @@ export const FilmScheduleInformation = {
       })
     },
     async [ACTION_GETCINEMASDATA]({ commit }) {
-      let val = await axios.get(`${commonUrl}/CCM_information/find`);
+      let val = await axios.get(`${commonUrl}/cinemaMsg/find`);
       val = val.data.map((item) => {
         return {
           value: item._id,
@@ -105,7 +105,7 @@ export const FilmScheduleInformation = {
       })
     },
     async [ACTION_GETHALLSDATA]({ commit }, obj) {
-      let val = await axios.get(`${commonUrl}/movieMsg/find`, {
+      let val = await axios.get(`${commonUrl}/roomMsg/find`, {
         params: {
           cinemasID: obj.hallsID
         }
@@ -122,7 +122,7 @@ export const FilmScheduleInformation = {
       })
     },
     async [ACTION_ADDDATA]({ commit }, obj) {
-      let info = await axios.get(`${commonUrl}/CCM_information/find`, {
+      let info = await axios.get(`${commonUrl}/cinemaMsg/find`, {
         params: {
           _id: obj.cinemasValue
         }

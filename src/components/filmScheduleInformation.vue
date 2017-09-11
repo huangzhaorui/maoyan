@@ -285,6 +285,10 @@
           this.hallsValue = "";
           this.dateValue = "";
           this.priceValue = "";
+          this.$message({
+            message: '拍片成功',
+            type: 'success'
+          });
         }else {
           this.$notify({
             title: '警告',
