@@ -20,19 +20,16 @@ const CinemaInformation = ({
 			state.cinemaMsgList =obj.obj.rows
 			state.maxPage = obj.obj.maxpage * 10;
 			state.page = obj.obj.page;
-			console.log(state.cinemaMsgList)
 		},
 		[MU_SEARCH_MSG](state, obj) {
 			state.cinemaMsgList =obj.obj.rows
 			state.maxPage = obj.obj.maxpage * 10;
 			state.page = obj.obj.page;
-			console.log(state.cinemaMsgList)
 		},
     },
 	actions: {
 //		添加
 		async[ACTION_ADD_MSG]({dispatch}, obj) {
-			console.log(obj)
 			await axios.get("http://127.0.0.1:3000/cinemaMsg/add",{
 				params:{
 					cinema:obj.message.cinema,
@@ -53,7 +50,6 @@ const CinemaInformation = ({
 					rows:5
 				}
 			})
-			console.log(data)
 			context.commit({
 				type:MU_GET_MSG,
 				obj:data
@@ -62,7 +58,6 @@ const CinemaInformation = ({
 //		查询
 		async [ACTION_SEARCH_MSG](context,obj){
 			var Name=obj.obj.searchAcc
-			console.log(obj.obj.searchAcc)
 			if(obj.obj.searchAcc=="cinema"){
 				var {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
 				params:{
