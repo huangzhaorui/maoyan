@@ -1,6 +1,5 @@
 <template>
     <div>
-<<<<<<< HEAD
         <div id="box">
             <el-row :gutter="20">
             <el-col :span="8"><div class="grid-content bg-purple">
@@ -131,15 +130,11 @@
             </el-col>
         </el-row>
         </div>
-=======
-        <h1>影厅信息</h1>
->>>>>>> d38649cecde8039cf9200a41c5f6c798d93f233e
     </div>
 </template>
 
 <script>
     export default {
-<<<<<<< HEAD
         data() {
             return {
                 input: '',
@@ -310,14 +305,10 @@
                 return this.$store.state.SRI.maxPage;
             }
         }
-=======
-        
->>>>>>> d38649cecde8039cf9200a41c5f6c798d93f233e
     }
 </script>
 
 <style scoped>
-<<<<<<< HEAD
     #box {
         padding: 20px;
     }
@@ -382,7 +373,5 @@
     .siteMsg {
         width: 120px;
     }
-=======
->>>>>>> d38649cecde8039cf9200a41c5f6c798d93f233e
 
 </style>

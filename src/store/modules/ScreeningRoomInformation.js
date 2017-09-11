@@ -1,10 +1,19 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
 import axios from 'axios';
-
+//同步
+const M_GETCINEMA='M_GETCINEMA';
+const M_GETDATA='M_GETDATA';
+const M_PAGING='M_PAGING';
+const M_ADDROOM='M_ADDROOM';
+//异步
+const A_GETCINEMA='A_GETCINEMA';
+const A_ADDROOM='A_ADDROOM';
+const A_GETDATA='A_GETDATA';
+const A_PAGING='A_PAGING';
+const A_SEARCH='A_SEARCH';
+const A_DELETE='A_DELETE';
+const A_SAVESITE='A_SAVESITE';
 
 const ScreeningRoomInformation = ({
-<<<<<<< HEAD
     state: {
         cinemaData: [],
         roomData: [{
@@ -252,9 +261,6 @@ const ScreeningRoomInformation = ({
             })
         }
     }
-=======
-   
->>>>>>> d38649cecde8039cf9200a41c5f6c798d93f233e
 })
 
 export default ScreeningRoomInformation;
