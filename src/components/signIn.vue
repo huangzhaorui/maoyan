@@ -11,7 +11,7 @@
     <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click="handleSubmit2" :loading="logining">登录</el-button>
-      <el-button type="primary" style="width:100%;" @click="handleSubmit3" :loading="loginings">注册</el-button>
+      <el-button type="primary" style="width:100%;" @click="handleSubmit3" :loading="logining">注册</el-button>
     </el-form-item>
     </el-form>
    </div>
@@ -77,7 +77,6 @@
                 ad.text = ""
             },
             handleSubmit3: function() {
-                console.log(123)
                 this.$router.push({
                     path: '/sigUp'
                 })
@@ -104,7 +103,6 @@
 
     .el-button--primary {
         color: wheat;
-        ;
         background-color: #20a0ff;
         border-color: rgba(0, 0, 0, 0.1);
     }
@@ -113,6 +111,10 @@
         color: wheat;
         font-weight: 700;
         background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .el-button:hover {
+        background-color: rgba(153, 153, 153, 0.6);
     }
 
     #user {
@@ -125,8 +127,8 @@
 
     .sub {
         background-image: url("./images/5938ac1e01cfc.jpg");
-        height: 768px;
-        margin-top: -178px;
+        width: 100%;
+        height: 661px;
         position: relative;
     }
 
@@ -135,14 +137,13 @@
         border-radius: 5px;
         -moz-border-radius: 5px;
         background-clip: padding-box;
-        margin: 180px auto;
+        margin: auto;
         width: 350px;
         padding: 35px 35px 15px 35px;
-       
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
         position: relative;
-        top: 212px;
+        top: 120px;
     }
 
     .title {
@@ -168,7 +169,6 @@
         border-radius: 5px;
         -moz-border-radius: 5px;
         background-clip: padding-box;
-        margin: 180px auto;
         width: 350px;
         padding: 35px 35px 15px 35px;
         background-color: rgba(0, 0, 0, 0.1);
@@ -176,7 +176,6 @@
         -webkit-box-shadow: 0 0 25px #cac6c6;
         box-shadow: 0 0 25px #cac6c6;
         position: relative;
-        top: 236px;
     }
 
 </style>
