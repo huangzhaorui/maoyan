@@ -17,6 +17,8 @@ import SignUp from '@/components/signUp'
 
 //影院信息
 import CinemaInformation from "@/components/cinemaInformation"
+//增加电影
+import addFilmInformation from "@/components/addFilmInformation"
 //电影信息
 import FilmInformation from "@/components/filmInformation"
 //影厅信息
@@ -50,6 +52,10 @@ export default new Router({
                 path: '/filmScheduleInformation',
                 name: '排片信息',
                 component: FilmScheduleInformation,
+            }, {
+                path: '/addFilmInformation',
+                name: '增加电影',
+                component: addFilmInformation,
             }]
     }, {
             path: '/signin',
