@@ -36,7 +36,7 @@
             </div></el-col>
             <el-col :span="8"><div class="grid-content bg-purple">
                 <el-collapse v-model="activeNames">
-                <el-collapse-item title="添加添厅" name="2">
+                <el-collapse-item title="添加影厅" name="2">
                     <div>
                         <el-row>
                             <el-col :span="24"><div class="grid-content">
