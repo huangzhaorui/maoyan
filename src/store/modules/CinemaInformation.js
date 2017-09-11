@@ -38,7 +38,6 @@ const CinemaInformation = ({
 					internetAddress:obj.message.internetAdress,
 				}
 			})
-			dispatch(ACTION_GET_MSG)
 		},
 //      获取数据
 		async[ACTION_GET_MSG](context,obj) {
