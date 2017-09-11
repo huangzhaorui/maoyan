@@ -286,7 +286,7 @@
           this.dateValue = "";
           this.priceValue = "";
           this.$message({
-            message: '拍片成功',
+            message: '排片成功',
             type: 'success'
           });
         }else {
