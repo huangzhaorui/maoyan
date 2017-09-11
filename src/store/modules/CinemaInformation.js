@@ -12,7 +12,8 @@ const CinemaInformation = ({
    state: {
         cinemaMsgList:[],
 //	    page:1,
-	    maxPage:5
+	    maxPage:5,
+	   searchName:""
     },
     mutations: {
 		[MU_GET_MSG](state, obj) {
@@ -60,13 +61,42 @@ const CinemaInformation = ({
 		},
 //		查询
 		async [ACTION_SEARCH_MSG](context,obj){
-			const {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
+			var Name=obj.obj.searchAcc
+			console.log(obj.obj.searchAcc)
+			if(obj.obj.searchAcc=="cinema"){
+				var {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
 				params:{
 					page:context.state.page,
 					rows:5,
-					cinema:obj.cinema
+					cinema:obj.obj.searchVal
 				}
 			})
+			}else if(obj.obj.searchAcc=="address"){
+				var {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
+				params:{
+					page:context.state.page,
+					rows:5,
+					address:obj.obj.searchVal
+				}
+			})
+			}else if(obj.obj.searchAcc=="phone"){
+				var {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
+				params:{
+					page:context.state.page,
+					rows:5,
+					phone:obj.obj.searchVal
+				}
+			})
+			}else{
+				var {data}=await axios.get("http://127.0.0.1:3000/cinemaMsg/find",{
+				params:{
+					page:context.state.page,
+					rows:5,
+					internetAddress:obj.obj.searchVal
+				}
+			})
+			}
+			
 			context.commit({
 				type:MU_SEARCH_MSG,
 				obj:data

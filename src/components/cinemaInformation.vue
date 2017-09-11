@@ -1,21 +1,20 @@
 <template>
 <div>
 <!------------------------------------------------搜索-------------------------------------------------------->
-  <el-dropdown split-button type="primary" @click="handleClick">
-	 选项
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item>影院</el-dropdown-item>
-    <el-dropdown-item>地址</el-dropdown-item>
-    <el-dropdown-item>网址</el-dropdown-item>
-  </el-dropdown-menu>
-</el-dropdown>
+  <el-select v-model="formInline" placeholder="选项">
+      <el-option label="影院" value="cinema"></el-option>
+      <el-option label="地址" value="address"></el-option>
+	  <el-option label="热线" value="phone"></el-option>
+	  <el-option label="网址" value="cinameurl"></el-option>
+  </el-select>
   <el-input
-  placeholder="影院搜索"
+  placeholder="搜索•••"
   icon="search"
   v-model="input2"
   show-header="false"
   :on-icon-click="handleIconClick">
 </el-input>
+<el-button id="returnMain" @click="returnMaine" type="primary">返回</el-button>
 <!------------------------------------------------添加------------------------------------------------------->
  <el-collapse v-model="activeName" accordion>
   <el-collapse-item id="insert" title="添加影院" name="1">
@@ -125,7 +124,8 @@
 		eltAddress:"",	
         eltinterAddress:"",
         eltPhone:"",
-		activeName: ''
+		activeName: '',
+		formInline:""
       }
     },
 	mounted(page){
@@ -133,6 +133,11 @@
 	},
 	
     methods: {
+		//返回
+		returnMaine(){
+			this.getPage()
+			this.input2=""
+		},
 		//		翻页
   		async getPage(page){
 	  		await this.$store.dispatch({
@@ -167,10 +172,16 @@
 		},
 //		搜索
 		async handleIconClick(){
+			console.log(this.formInline)
 			await this.$store.dispatch({
 				type:"ACTION_SEARCH_MSG",
-				cinema:this.input2
+				obj:{
+					searchAcc:this.formInline,
+				    searchVal:this.input2,
+				}
+				
 			})
+//			this.input2=""
 		},
 //		删除
 		async deleteRow(scope){
@@ -263,5 +274,16 @@
 		width:180px;
 		margin-right: 80px;
 		float: left;
+	}
+	.el-select{
+		width:80px;
+	}
+	.el-collapse,.el-select{
+		margin-top:1px;
+	}
+	#returnMain{
+		background-color: #fff;
+		border-color: #bfcbdb;
+		color:#bfcbdb;
 	}
 </style>

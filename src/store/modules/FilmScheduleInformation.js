@@ -52,7 +52,7 @@ export const FilmScheduleInformation = {
   },
   actions: {
     async [ACTION_GETMOVIESLIST]({ commit }) {
-      let val = await axios.get(`${commonUrl}/filmCol/find`);
+      let val = await axios.get(`${commonUrl}/hotMovie/find`);
       val = val.data.map((item) => {
         return {
           value: item._id,
@@ -65,7 +65,7 @@ export const FilmScheduleInformation = {
       })
     },
     async [ACTION_GETMOVIESDATA]({ commit }, obj) {
-      let val = await axios.get(`${commonUrl}/filmCol/find`, {
+      let val = await axios.get(`${commonUrl}/hotMovie/find`, {
         params: {
           page: obj.curPage,
           rows: obj.pageSize
@@ -92,7 +92,7 @@ export const FilmScheduleInformation = {
       })
     },
     async [ACTION_GETCINEMASDATA]({ commit }) {
-      let val = await axios.get(`${commonUrl}/CCM_information/find`);
+      let val = await axios.get(`${commonUrl}/cinemaMsg/find`);
       val = val.data.map((item) => {
         return {
           value: item._id,
