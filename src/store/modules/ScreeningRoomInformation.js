@@ -22,6 +22,12 @@ const ScreeningRoomInformation = ({
                 }, {
             value: '二号厅',
             label: '二号厅'
+                }, {
+            value: 'VIP厅',
+            label: 'VIP厅'
+                }, {
+            value: '3DMAX厅',
+            label: '3DMAX厅'
                 }],
         maxPage: 10,
         page: 1,
