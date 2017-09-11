@@ -30,7 +30,6 @@ const ScreeningRoomInformation = ({
     },
     mutations: {
         [M_GETCINEMA](state, obj) {
-            console.log(obj.data);
             obj.data.map((item) => {
                 let data = {
                     value: item.cinema,
@@ -158,7 +157,6 @@ const ScreeningRoomInformation = ({
             })
         },
         async [A_SEARCH](context, obj) {
-            console.log(obj);
             let data = {};
             if (obj.data.type == 'roomName') {
                 data = await axios.get('http://127.0.0.1:3000/roomMsg/find', {

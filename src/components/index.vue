@@ -1,9 +1,19 @@
 <template>
     <div id="box">
         <el-row  class="top">
-            <el-col :span="24">
+            <el-col :span="24" class="top-left">
                 <h2>猫眼电影后台管理系统</h2>
                 <span id="dateStr" class="word_grey"></span>
+            </el-col>
+            <el-col class="top-right">
+                <el-dropdown trigger="hover">
+					<span class="text"><img src="./images/3.png" alt="">admin {{Name}}</span>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item>我的消息</el-dropdown-item>
+						<el-dropdown-item>设置</el-dropdown-item>
+						<el-dropdown-item divided @click.native="logout">退出登录</el-dropdown-item>
+					</el-dropdown-menu>
+				</el-dropdown>
             </el-col>
         </el-row>
         <el-row :gutter="20" class="bottom">
@@ -34,7 +44,7 @@
                             <router-link to="/filmScheduleInformation">
                                 <el-menu-item index="4"  class="text">
                                     <i class="icon icon4"></i>
-                                   排片信息
+                                    排片信息
                                 </el-menu-item>
                             </router-link>
                             </el-menu-item-group>
@@ -81,24 +91,70 @@
             second = "0" + second;
         }
         var newDate = year + "年" + month + "月" + date + "日 " + week + " " + hour + ":" + minute + ":" + second;
-        document.getElementById("dateStr").innerHTML = "当前时间：" + newDate + "";
+        document.getElementById("dateStr").innerHTML = "" + newDate + "";
     }
     export default {
         data() {
-            return {};
+            return {
+                Name: '',
+                time: false
+            };
         },
         mounted() {
             getLangDate();
-            setInterval(function() {
+            let off = setInterval(function() {
                 getLangDate()
+                if (this.time) {
+                    clearInterval(off);
+                }
             }, 1000) //每隔1秒重新调用一次该函数  
         },
-        methods: {}
+        methods: {
+            logout() {
+                var _this = this;
+                this.$confirm('确认退出吗？', '提示', {
+
+                }).then(() => {
+                    sessionStorage.removeItem('user');
+                    _this.$router.push('/signIn');
+                })
+            }
+        }
     }
 
 </script>
 
 <style scoped>
+    .userinfo {
+        text-align: right;
+        padding-right: 35px;
+        float: right;
+    }
+
+    .userinfo-inner {
+        cursor: pointer;
+        color: #fff;
+    }
+
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 20px;
+        margin: 10px 0px 10px 10px;
+        float: right;
+    }
+
+    .text {
+        color: black;
+        line-height: 5;
+    }
+
+    .top-right {
+        position: absolute;
+        left: 1143px;
+        top: 30px;
+    }
+
     #box {
         width: 100%;
         height: 660px;
@@ -107,7 +163,8 @@
 
     .top {
         padding-bottom: 40px;
-        background-color: #dc352d;
+        background-image: url("./images/934245c318fbf1ce297bb8a7de15f14f.jpg");
+        position: relative;
     }
 
     .top h2 {
@@ -125,8 +182,7 @@
     .el-menu-vertical-demo {
         width: 200px;
         height: 529px;
-        background-color: #273238;
-		
+        background-color: rgb(24, 29, 32);
     }
 
     .text {
@@ -202,15 +258,7 @@
     #dateStr {
         font-size: 14px;
         font-weight: 600;
-        color: white;
+        color: black;
     }
-/*
-	.el-menu-item{
-		color:#fff;
-	}
-	a:visited{
-		color:red;
-	}
-*/
 
 </style>

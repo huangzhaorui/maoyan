@@ -248,7 +248,6 @@
             },
             //保存当前行的座位信息
             async save(scope) {
-                console.log(scope);
                 if (/^[1-9]{1}$/.test(this.row) && /^[1-9]{1}$/.test(this.num) && this.siteState != '') {
                     await this.$store.dispatch({
                         type: 'A_SAVESITE',
