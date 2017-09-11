@@ -34,7 +34,7 @@
                             <router-link to="/filmScheduleInformation">
                                 <el-menu-item index="4"  class="text">
                                     <i class="icon icon4"></i>
-                                   排片信息
+                                    排片信息
                                 </el-menu-item>
                             </router-link>
                             </el-menu-item-group>
@@ -107,7 +107,7 @@
 
     .top {
         padding-bottom: 40px;
-        background-color: #dc352d;
+        background-color: #FF4949;
     }
 
     .top h2 {
@@ -125,8 +125,7 @@
     .el-menu-vertical-demo {
         width: 200px;
         height: 529px;
-        background-color: #273238;
-		
+        background-color: rgb(24, 29, 32);
     }
 
     .text {
@@ -204,13 +203,5 @@
         font-weight: 600;
         color: white;
     }
-/*
-	.el-menu-item{
-		color:#fff;
-	}
-	a:visited{
-		color:red;
-	}
-*/
 
 </style>
