@@ -56,17 +56,17 @@
           </div>
 <!--          ***************************************确认按钮***************************************-->
           <div>
-            <el-button class="confirmBtn" @click="clickConfirmBtn" type="primary">确认排片<i class="el-icon-upload el-icon--right"></i></el-button>
+            <el-button class="confirmBtn" @click="clickConfirmBtn" type="primary">确认排片<i class="el-icon-upload2 el-icon--right"></i></el-button>
           </div>
         </div>
       </el-row>
 <!--      ***************************************电影列表***************************************-->
-      <el-row>
+      <el-row v-if="isClick">
           <el-table
             :data="FSI.moviesData"
             border
             style="width: 100%"
-            max-height="250">
+            max-height="350">
             <el-table-column
               prop="filmName"
               label="电影名">
@@ -105,73 +105,76 @@
           </el-pagination>
         </div>
       </el-row>
-<!--      ***************************************拍片列表***************************************-->
-      <el-row>
-        <el-table
-          :data="FSI.checkData"
-          max-height="300"
-          style="width: 100%">
-          <el-table-column type="expand">
-            <template scope="props">
-              <el-form label-position="left" inline class="demo-table-expand">
-                <el-form-item label="影院地址">
-                  <span>{{ props.row.address }}</span>
-                </el-form-item>
-                <el-form-item label="影院电话">
-                  <span>{{ props.row.phone_num }}</span>
-                </el-form-item>
-                <el-form-item label="影院价格">
-                  <span>{{ props.row.official_website }}</span>
-                </el-form-item>
-              </el-form>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="影院"
-            prop="checkCinemaName">
-          </el-table-column>
-          <el-table-column
-            label="影厅"
-            prop="checkHallName">
-          </el-table-column>
-          <el-table-column
-            label="放映时间"
-            prop="dateValue">
-          </el-table-column>
-          <el-table-column
-            label="价格"
-            prop="priceValue">
-          </el-table-column>
-          <el-table-column
-            label="操作">
-            <template scope="scope">
-              <el-popover
-                ref="seatState"
-                placement="left-start"
-                width="420"
-                trigger="click">
-                <div class="seatDiv">
-                  <div class="row-div">
-                    <div class="row" v-for='(item, index) in FSI.seatData'>{{ index + 1 }}</div>
-                  </div>
-                  <div>
-                    <div v-for="(item, tr) in FSI.seatData">
-                      <div @click="seatClick(item.displayName)" class="seat" v-for="(item, td) in item"></div>
+<!--      ***************************************排片列表***************************************-->
+      <div v-else>
+        <el-row>
+          <el-table
+            :data="FSI.checkData"
+            max-height="300"
+            style="width: 100%">
+            <el-table-column type="expand">
+              <template scope="props">
+                <el-form label-position="left" inline class="demo-table-expand">
+                  <el-form-item label="影院地址">
+                    <span>{{ props.row.address }}</span>
+                  </el-form-item>
+                  <el-form-item label="影院电话">
+                    <span>{{ props.row.phone_num }}</span>
+                  </el-form-item>
+                  <el-form-item label="影院价格">
+                    <span>{{ props.row.official_website }}</span>
+                  </el-form-item>
+                </el-form>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="影院"
+              prop="checkCinemaName">
+            </el-table-column>
+            <el-table-column
+              label="影厅"
+              prop="checkHallName">
+            </el-table-column>
+            <el-table-column
+              label="放映时间"
+              prop="dateValue">
+            </el-table-column>
+            <el-table-column
+              label="价格"
+              prop="priceValue">
+            </el-table-column>
+            <el-table-column
+              label="操作">
+              <template scope="scope">
+                <el-popover
+                  ref="seatState"
+                  placement="left-start"
+                  width="420"
+                  trigger="click">
+                  <div class="seatDiv">
+                    <div class="row-div">
+                      <div class="row" v-for='(item, index) in FSI.seatData'>{{ index + 1 }}</div>
+                    </div>
+                    <div>
+                      <div v-for="(item, tr) in FSI.seatData">
+                        <div @click="seatClick(item.displayName)" class="seat" v-for="(item, td) in item"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </el-popover>
-              <el-button
-                type="text"
-                v-popover:seatState
-                @click="clickSeatBtn(scope)"
-                size="small">
-                查看座位情况
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-row>
+                </el-popover>
+                <el-button
+                  type="text"
+                  v-popover:seatState
+                  @click="clickSeatBtn(scope)"
+                  size="small">
+                  查看座位情况
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-row>
+        <el-button class="returnMovieListBtn" @click="returnMovieList" type="primary">返回电影列表<i class="el-icon-caret-left el-icon--right"></i></el-button>
+      </div>
     </div>
 </template>
 
@@ -204,7 +207,8 @@
         cinemaListData: [],
         hallListData: [],
         curPage: 1,
-        pageSize: 4
+        pageSize: 6,
+        isClick: true
       }
     },
     /***************************************网页打开时render***************************************/
@@ -304,6 +308,7 @@
           type: ACTION_GETCHECKDATA,
           movieID: scope.row.id
         })
+        this.isClick = false;
       },
       /***************************************点击查看座位情况***************************************/
       async clickSeatBtn(scope) {
@@ -318,6 +323,9 @@
           showClose: true,
           message: `这个位置是${flag}`
         });
+      },
+      returnMovieList() {
+        this.isClick = true;
       }
     }
   }
@@ -411,6 +419,11 @@
   
   .row-div {
     margin-right: 15px;
+  }
+  
+  .returnMovieListBtn {
+    float: right;
+    margin-top: 15px;
   }
 
 </style>
