@@ -71,7 +71,7 @@
 </el-table-column>
 </el-table>
 <div class="block">
-    <el-pagination layout="prev, pager, next" :total="movieNum" @current-change="pageChange">
+    <el-pagination layout="prev, pager, next" :total="20" @current-change="pageChange">
     </el-pagination>
 </div>
 </div>

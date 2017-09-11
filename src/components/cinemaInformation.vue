@@ -78,7 +78,7 @@
     </el-table-column>
     <el-table-column
       prop="internetAddress"
-      label="网址">
+      label="影院价格">
     </el-table-column>
     <el-table-column
       label="操作"

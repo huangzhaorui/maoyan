@@ -145,7 +145,7 @@
     }
 
     .text {
-        color: black;
+/*        color: black;*/
         line-height: 5;
     }
 
@@ -258,7 +258,7 @@
     #dateStr {
         font-size: 14px;
         font-weight: 600;
-        color: black;
+/*        color: black;*/
     }
 
 </style>
