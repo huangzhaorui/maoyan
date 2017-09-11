@@ -56,7 +56,7 @@
           </div>
 <!--          ***************************************确认按钮***************************************-->
           <div>
-            <el-button class="confirmBtn" @click="clickConfirmBtn" type="primary">确认排片</el-button>
+            <el-button class="confirmBtn" @click="clickConfirmBtn" type="primary">确认拍片<i class="el-icon-upload el-icon--right"></i></el-button>
           </div>
         </div>
       </el-row>

@@ -196,7 +196,8 @@
                 }
             },
             async onSubmit() {
-                let movieInfo = {
+                if(this.form.name&&this.form.enName&&this.form.type&&this.form.countries&&this.form.director&&this.form.casts&&this.form.summary){
+                    let movieInfo = {
                     filmName: this.form.name,
                     englishName: this.form.enName,
                     type: (this.form.type).split(","),
@@ -232,6 +233,9 @@
                         type: GET_ADDMOVIE,
                         movieInfo
                     })
+                }
+                }else{
+                    this.$message.error('请输入完整的电影信息！');
                 }
 
 
