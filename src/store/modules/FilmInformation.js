@@ -24,12 +24,13 @@ const FilmInformation = ({
     },
     mutations: {
 		[MU_GET_MOVIE_LIST](state, data) {
+            console.log(data)
             state.movieList = data.rows;
-            state.movieNum = data.total;
+            state.movieNum = data.total / data.eachpage * 100;
             return state;
         },
         [MU_GET_ADDMOVIE](state, data) {
-            state.addMovie=data[0];
+            state.addMovie = data[0];
             return state;
         },
         [MU_GET_UPDATAMOVIE](state, data) {
@@ -46,19 +47,19 @@ const FilmInformation = ({
             let data = await axios.get("http://127.0.0.1:3000/filmCol/find", {
                 params: {
                     page: obj.page || context.state.page,
-                    rows: 7
+                    rows: 4
                 }
             })
             context.commit(MU_GET_MOVIE_LIST, data.data)
         },
         async [ADD_MOVIE](context, obj) {
             await axios.get("http://127.0.0.1:3000/filmCol/add", {
-              params: obj.movieInfo
+                params: obj.movieInfo
             })
         },
         async [ADD_MOVIEPIC](context, obj) {
             await axios.get("http://127.0.0.1:3000/filmImgCol/add", {
-              params: obj.addMoviePics
+                params: obj.addMoviePics
             })
         },
         [UPDATA_MOVIE](context, obj) {
