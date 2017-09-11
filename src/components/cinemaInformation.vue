@@ -78,7 +78,7 @@
     </el-table-column>
     <el-table-column
       prop="internetAddress"
-      label="网址">
+      label="影院价格">
     </el-table-column>
     <el-table-column
       label="操作"
@@ -100,7 +100,7 @@
   <div class="block">
   <el-pagination
     layout="prev, pager, next"
-    :total="maxPage" @current-change="getPage	">
+    :total="maxPage" @current-change="getPage">
   </el-pagination>
 </div>
 </div>

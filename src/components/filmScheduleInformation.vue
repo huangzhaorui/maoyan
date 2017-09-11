@@ -109,6 +109,7 @@
       <el-row>
         <el-table
           :data="FSI.checkData"
+          max-height="300"
           style="width: 100%">
           <el-table-column type="expand">
             <template scope="props">
@@ -119,7 +120,7 @@
                 <el-form-item label="影院电话">
                   <span>{{ props.row.phone_num }}</span>
                 </el-form-item>
-                <el-form-item label="影院网址">
+                <el-form-item label="影院价格">
                   <span>{{ props.row.official_website }}</span>
                 </el-form-item>
               </el-form>
