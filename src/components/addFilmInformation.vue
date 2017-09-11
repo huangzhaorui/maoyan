@@ -283,7 +283,7 @@
                 console.log(addMoviePics);
                 await this.$store.dispatch({
                     type: ADD_MOVIEPIC,
-                    movieId: this.addMovie._id,
+                    addMoviePics,
                 })
                 this.$message({
                     showClose: true,

@@ -74,9 +74,10 @@
                 }
             },
             focus() {
-                ad.text = "sadsad"
+                ad.text = ""
             },
             handleSubmit3: function() {
+                console.log(123)
                 this.$router.push({
                     path: '/sigUp'
                 })
@@ -124,8 +125,8 @@
 
     .sub {
         background-image: url("./images/5938ac1e01cfc.jpg");
-        height: 1000px;
-        margin-top: -185px;
+        height: 768px;
+        margin-top: -178px;
         position: relative;
     }
 
@@ -137,15 +138,17 @@
         margin: 180px auto;
         width: 350px;
         padding: 35px 35px 15px 35px;
-        background: #fff;
+       
         border: 1px solid #eaeaea;
         box-shadow: 0 0 25px #cac6c6;
+        position: relative;
+        top: 212px;
     }
 
     .title {
         margin: 0px auto 40px auto;
         text-align: center;
-        color: #505458;
+        color: wheat;
     }
 
     .remember {
