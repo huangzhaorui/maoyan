@@ -100,7 +100,7 @@
   <div class="block">
   <el-pagination
     layout="prev, pager, next"
-    :total="maxPage" @current-change="getPage	">
+    :total="maxPage" @current-change="getPage">
   </el-pagination>
 </div>
 </div>
