@@ -52,7 +52,9 @@ const FilmInformation = ({
             context.commit(MU_GET_MOVIE_LIST, data.data)
         },
         async [ADD_MOVIE](context, obj) {
-            await axios.post("http://127.0.0.1:3000/filmCol/add", obj.movieInfo)
+            await axios.get("http://127.0.0.1:3000/filmCol/add", {
+              params: obj.movieInfo
+            })
         },
         async [ADD_MOVIEPIC](context, obj) {
             await axios.post("http://127.0.0.1:3000/filmImgCol/add", obj.addMoviePics)
