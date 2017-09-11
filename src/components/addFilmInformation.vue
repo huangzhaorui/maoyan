@@ -252,17 +252,6 @@
                 this.imageUrl = URL.createObjectURL(file.raw);
                 this.posterImg = response.url;
             },
-            //图集上传
-//            beforeMoviePic(file,fileList){
-//                if (this.fileList.length > 4) {
-//                    this.$message({
-//                    type: 'error',
-//                    message: '最多上传4张图片',
-//                    duration: 1000
-//                    })
-//                    return false
-//                    }
-//            },
             moviePics(response, file) {
                 this.atlas.push(response.url);
             },
@@ -299,7 +288,6 @@
             },
             beforeAvatarUpload(file) {
                 const isLt2M = file.size / 1024 / 1024 < 2;
-
                 if (!isLt2M) {
                     this.$message.error('上传头像图片大小不能超过 2MB!');
                 }
