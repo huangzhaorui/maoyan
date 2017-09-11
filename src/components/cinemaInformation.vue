@@ -100,7 +100,7 @@
   <div class="block">
   <el-pagination
     layout="prev, pager, next"
-    :total="maxPage" @current-change="getPage">
+    :total="maxPage" @current-change="getPage	">
   </el-pagination>
 </div>
 </div>
@@ -114,22 +114,27 @@
 	import {ACTION_GET_MSG,ACTION_ELT_MSG,ACTION_SEARCH_MSG,ACTION_ADD_MSG} from "../store/modules/CinemaInformation"
     export default {
        data() {
-      return {
-		input2: '',
-		film:"",
-		phoneNum:'',
-		address1:'',
-		internetAdress1:'',
-		eltCinema:'',
-		eltAddress:"",	
-        eltinterAddress:"",
-        eltPhone:"",
-		activeName: '',
-		formInline:""
-      }
+		  return {
+			input2: '',
+			film:"",
+			phoneNum:'',
+			address1:'',
+			internetAdress1:'',
+			eltCinema:'',
+			eltAddress:"",	
+			eltinterAddress:"",
+			eltPhone:"",
+			activeName: '',
+			formInline:"",
+			curpage:1
+		  }
     },
-	mounted(page){
-	  this.getPage()
+	async mounted(){
+	  await this.$store.dispatch({
+			type:"ACTION_GET_MSG",
+			page: this.curpage
+		});
+		
 	},
 	
     methods: {
@@ -140,9 +145,10 @@
 		},
 		//		翻页
   		async getPage(page){
+			this.curpage = page || this.curpage;
 	  		await this.$store.dispatch({
 				type:"ACTION_GET_MSG",
-				page
+				page: this.curpage
 	  		});
  		},
 		//		添加影院信息
@@ -166,7 +172,7 @@
 			this.phoneNum=""
 			this.address1=""
 			this.internetAdress1=""
-			this.getPage()
+			this.getPage();
 			}
 			
 		},
