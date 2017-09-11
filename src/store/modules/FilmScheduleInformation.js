@@ -107,13 +107,13 @@ export const FilmScheduleInformation = {
     async [ACTION_GETHALLSDATA]({ commit }, obj) {
       let val = await axios.get(`${commonUrl}/roomMsg/find`, {
         params: {
-          cinemasID: obj.hallsID
+          cinemasId: obj.hallsID
         }
       });
       val = val.data.map((item) => {
         return {
           value: item._id,
-          label: item.movieHall
+          label: item.roomName
         }
       })
       commit({
