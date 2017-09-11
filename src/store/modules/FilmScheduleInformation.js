@@ -127,6 +127,7 @@ export const FilmScheduleInformation = {
           _id: obj.cinemasValue
         }
       })
+      console.log(info)
       let val = await axios.get(`${commonUrl}/rowPieceCol/add`, {
         params: {
           moviesValue: obj.moviesValue,
@@ -137,9 +138,9 @@ export const FilmScheduleInformation = {
           checkMovieName: obj.checkMovieName,
           checkCinemaName: obj.checkCinemaName,
           checkHallName: obj.checkHallName,
-          official_website: info.data.official_website,
+          official_website: info.data.internetAddress,
           address: info.data.address,
-          phone_num: info.data.phone_num
+          phone_num: info.data.phone
         }
       })
       let seatColObj = {};
