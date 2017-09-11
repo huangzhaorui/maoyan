@@ -30,6 +30,7 @@ const ScreeningRoomInformation = ({
     },
     mutations: {
         [M_GETCINEMA](state, obj) {
+            console.log(obj.data);
             obj.data.map((item) => {
                 let data = {
                     value: item.cinema,

@@ -82,7 +82,7 @@
             </el-row>
             <el-row>
                 <el-col :span="24"><div class="grid-content">
-                    <el-table :data="tableData" border style="text-align: center"  @cell-mouse-enter="clickRowBtn"  @expand="blockBtn" width="1000">
+                    <el-table :data="tableData" border style="text-align: center" @expand="blockBtn" width="1000">
                     <el-table-column type="expand" width="50">
                     <template scope="props">
                     <el-form label-position="left" inline class="demo-table-expand" style="text-align: center">
@@ -114,8 +114,8 @@
                     <el-table-column prop="sites" label="座位总数" width="200"></el-table-column>
                     <el-table-column prop="id" label="操作">
                         <template scope="scope">
-                            <el-button type="primary" @click="save">保存</el-button>
-                            <el-button @click="deleteBtn">删除</el-button>
+                            <el-button type="primary" @click.native.prevent="save(scope)">保存</el-button>
+                            <el-button @click.native.prevent="deleteRow(scope)">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -142,7 +142,6 @@
                 cinemaId: '',
                 roomVal: '',
                 type: '',
-                checkId: '',
                 row: '',
                 num: '',
                 errorText: '',
@@ -233,10 +232,6 @@
             refreshBtn() {
                 this.getData();
             },
-            //获取当前行的信息
-            clickRowBtn(e) {
-                this.checkId = e.id;
-            },
             //打开扩展行时清空输入
             blockBtn(row) {
                 this.row = '';
@@ -244,20 +239,21 @@
                 this.siteState = '';
             },
             //删除选中行信息
-            async deleteBtn() {
+            async deleteRow(scope) {
                 await this.$store.dispatch({
                     type: 'A_DELETE',
-                    id: this.checkId
+                    id: scope.row.id
                 })
                 this.getData();
             },
             //保存当前行的座位信息
-            async save() {
+            async save(scope) {
+                console.log(scope);
                 if (/^[1-9]{1}$/.test(this.row) && /^[1-9]{1}$/.test(this.num) && this.siteState != '') {
                     await this.$store.dispatch({
                         type: 'A_SAVESITE',
                         data: {
-                            id: this.checkId,
+                            id: scope.row.id,
                             row: this.row,
                             num: this.num,
                             siteState: this.siteState
